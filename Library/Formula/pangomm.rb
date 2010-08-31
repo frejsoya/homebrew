@@ -1,15 +1,15 @@
 require 'formula'
 
 class Pangomm <Formula
-
-  url 'http://ftp.gnome.org/pub/GNOME/sources/pangomm/2.26/pangomm-2.26.2.tar.gz'
+  url 'http://ftp.gnome.org/pub/GNOME/sources/pangomm/2.26/pangomm-2.26.2.tar.bz2'
+  sha256 '0d20fd80d35f7df01138e24b2ab4a70974c6652528a905605e3173a6955fa739'
   homepage 'http://www.pango.org/'
-  md5 '2ccc1a5e271d90d4d1a414e0e234329a'
 
-  depends_on 'pkg-config'
-  depends_on 'pango'
+  depends_on 'glibmm'
+  depends_on 'cairomm'
 
-    system "./configure", "--disable-dependency-tracking", "--prefix=#{prefix}"
+  def install
+    system "./configure", "--prefix=#{prefix}"
     system "make install"
   end
 end
