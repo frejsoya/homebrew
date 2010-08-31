@@ -1,15 +1,15 @@
 require 'formula'
 
 class Pixman <Formula
-  url 'http://www.cairographics.org/releases/pixman-0.18.0.tar.gz'
+  url 'http://www.cairographics.org/releases/pixman-0.18.2.tar.gz'
   homepage 'http://www.cairographics.org/'
-  md5 'a4fb870fc325be258089f1683642e976'
+  sha1 '7b2da072ceede62ac10cc84f0da7eb79e0328483'
 
   depends_on 'pkg-config'
   depends_on 'libpng'
 
   def install
-    system "./configure", "--prefix=#{prefix}", "--disable-dependency-tracking"
+    system "./configure", "--prefix=#{prefix}", "--disable-dependency-tracking", "--disable-gtk"
     system "make install"
   end
 end

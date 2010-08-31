@@ -12,11 +12,17 @@ class Gtkx <Formula
   depends_on 'pango'
   depends_on 'jasper' => :optional
   depends_on 'atk' => :optional
+  depends_on 'cairo'
 
   def install
+    # Cairo is keg-only, so this needs to be specified.
+    cairo_pkgconfig = File.join(Formula.factory("cairo").prefix, 'lib', 'pkgconfig')
+    ENV['PKG_CONFIG_PATH'] = cairo_pkgconfig
+
     system "./configure", "--disable-debug", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
-                          "--disable-glibtest"
+                          "--disable-glibtest",
+                          "--with-gdktarget=quartz"
     system "make install"
   end
 end

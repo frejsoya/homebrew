@@ -14,7 +14,11 @@ class Pango <Formula
   end
 
   def install
-    system "./configure", "--prefix=#{prefix}", "--with-x"
+    # Cairo is keg-only, so this needs to be specified.
+    cairo_pkgconfig = File.join(Formula.factory("cairo").prefix, 'lib', 'pkgconfig')
+    ENV['PKG_CONFIG_PATH'] = cairo_pkgconfig
+
+    system "./configure", "--prefix=#{prefix}", "--without-x"
     system "make install"
   end
 end

@@ -7,12 +7,11 @@ class Wireshark <Formula
 
   depends_on 'gnutls' => :optional
   depends_on 'pcre' => :optional
-  depends_on 'glib'
+  depends_on 'gtk'
 
   def install
     system "./configure", "--prefix=#{prefix}",
-                          "--disable-dependency-tracking",
-                          "--disable-wireshark" # actually just disables the GTK GUI
+                          "--disable-dependency-tracking"
     system "make"
     ENV.j1 # Install failed otherwise.
     system "make install"
