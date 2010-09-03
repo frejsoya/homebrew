@@ -7,7 +7,7 @@ class Wireshark <Formula
 
   depends_on 'gnutls' => :optional
   depends_on 'pcre' => :optional
-  depends_on 'gtk'
+  depends_on 'gtk+'
 
   def install
     system "./configure", "--prefix=#{prefix}",
