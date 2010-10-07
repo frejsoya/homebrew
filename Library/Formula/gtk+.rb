@@ -19,6 +19,7 @@ class Gtkx <Formula
     cairo_pkgconfig = File.join(Formula.factory("cairo").prefix, 'lib', 'pkgconfig')
     ENV['PKG_CONFIG_PATH'] = cairo_pkgconfig
 
+    fails_with_llvm "Undefined symbols when linking", :build => "2326"
     system "./configure", "--disable-debug", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
                           "--disable-glibtest",

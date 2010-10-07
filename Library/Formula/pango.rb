@@ -14,6 +14,7 @@ class Pango <Formula
   end
 
   def install
+    fails_with_llvm "Undefined symbols when linking", :build => "2326"
     # Cairo is keg-only, so this needs to be specified.
     cairo_pkgconfig = File.join(Formula.factory("cairo").prefix, 'lib', 'pkgconfig')
     ENV['PKG_CONFIG_PATH'] = cairo_pkgconfig
