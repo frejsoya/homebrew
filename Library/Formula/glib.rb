@@ -9,18 +9,23 @@ end
 def build_tests?; ARGV.include? '--test'; end
 
 class Glib <Formula
-  url 'http://ftp.gnome.org/pub/gnome/sources/glib/2.24/glib-2.24.2.tar.bz2'
-  sha256 '3aeb521abd3642dd1224379f0e54915957e5010f888a4ae74afa0ad54da0160c'
+  url 'http://ftp.gnome.org/pub/GNOME/sources/glib/2.26/glib-2.26.0.tar.bz2'
+  sha256 '4c18e3aadb5b20acc7c0f7d3a77da8a2843b85a9fd73fd3aa360a7aea953e3b2'
   homepage 'http://www.gtk.org'
 
-  depends_on 'pkg-config' => :build
+  depends_on 'autoconf'
+  depends_on 'pkg-config'
   depends_on 'gettext'
 
   def patches
-    mp = "http://trac.macports.org/export/69965/trunk/dports/devel/glib2/files/"
+    mp = "https://svn.macports.org/repository/macports/trunk/dports/devel/glib2/files/"
     {
       :p0 => [
-        mp+"patch-configure.in.diff",
+        mp+"patch-configure.ac.diff",
+        mp+"patch-glib-2.0.pc.in.diff",
+        mp+"patch-glib_gunicollate.c.diff",
+        mp+"patch-gi18n.h.diff",
+        mp+"patch-gio_xdgmime_xdgmime.c.diff",
         mp+"patch-child-test.c.diff"
       ]
     }
@@ -32,6 +37,8 @@ class Glib <Formula
 
   def install
     fails_with_llvm "Undefined symbol errors while linking"
+
+    ENV.universal_binary
 
     # Snow Leopard libiconv doesn't have a 64bit version of the libiconv_open
     # function, which breaks things for us, so we build our own
@@ -59,10 +66,11 @@ class Glib <Formula
 
     args << "--disable-debug" unless build_tests?
 
+    system Formula.factory("autoconf").bin+"autoconf"
     system "./configure", *args
 
     # Fix for 64-bit support, from MacPorts
-    curl "http://trac.macports.org/export/69965/trunk/dports/devel/glib2/files/config.h.ed", "-O"
+    curl "https://svn.macports.org/repository/macports/trunk/dports/devel/glib2/files/config.h.ed", "-O"
     system "ed - config.h < config.h.ed"
 
     system "make"

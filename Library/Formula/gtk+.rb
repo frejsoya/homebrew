@@ -15,9 +15,12 @@ class Gtkx <Formula
   depends_on 'cairo'
 
   def install
-    # Cairo is keg-only, so this needs to be specified.
-    cairo_pkgconfig = File.join(Formula.factory("cairo").prefix, 'lib', 'pkgconfig')
-    ENV['PKG_CONFIG_PATH'] = cairo_pkgconfig
+    ENV.append 'CFLAGS', '-arch i386'
+
+    # Cairo and libpng are keg-only, so this needs to be specified.
+    cairo_pkgconfig = Formula.factory("cairo").prefix+'lib'+'pkgconfig'
+    libpng_pkgconfig = Formula.factory("libpng").prefix+'lib'+'pkgconfig'
+    ENV['PKG_CONFIG_PATH'] = [ cairo_pkgconfig, libpng_pkgconfig ].join(":")
 
     fails_with_llvm "Undefined symbols when linking", :build => "2326"
     system "./configure", "--disable-debug", "--disable-dependency-tracking",

@@ -6,9 +6,10 @@ class Gegl <Formula
   homepage 'http://www.gegl.org/'
 
   depends_on 'glib'
+  depends_on 'babl'
 
   def install
-    system "./configure", "--prefix=#{prefix}", "--disable-mmx", "--disable-docs"
+    system "./configure", "--prefix=#{prefix}", "--disable-mmx", "--disable-docs", "--disable-dependency-tracking"
     system "make install"
   end
 end

@@ -10,6 +10,7 @@ class Libidl <Formula
   depends_on 'glib'
 
   def install
+    ENV.universal_binary
     system "./configure", "--prefix=#{prefix}", "--disable-dependency-tracking"
     system "make install"
   end
