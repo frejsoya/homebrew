@@ -5,6 +5,8 @@ class Pangomm <Formula
   sha256 '0d20fd80d35f7df01138e24b2ab4a70974c6652528a905605e3173a6955fa739'
   homepage 'http://www.pango.org/'
 
+  depends_on 'pkg-config' => :build
+  depends_on 'pango'
   depends_on 'glibmm'
   depends_on 'cairomm'
 

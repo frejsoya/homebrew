@@ -5,7 +5,7 @@ class Pixman <Formula
   homepage 'http://www.cairographics.org/'
   sha1 '7b2da072ceede62ac10cc84f0da7eb79e0328483'
 
-  depends_on 'pkg-config'
+  depends_on 'pkg-config' => :build
   depends_on 'libpng'
 
   def install
