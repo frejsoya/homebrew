@@ -18,9 +18,9 @@ class Cairomm <Formula
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
                           "--without-x",
-            						  "--without-xlib",
-            						  "--disable-quartz",
-            						  "--disable-quartz-font"
+            			 "--without-xlib",
+            			 "--enable-quartz",
+            						  "--enable-quartz-font"
     system "make install"
   end
 end
