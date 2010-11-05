@@ -2,37 +2,26 @@ require 'formula'
 
 class Arm < Formula
   homepage 'http://www.atagar.com/arm/'
-  url 'http://www.atagar.com/arm/resources/arm-1-3-6.tar.bz2'
-  version '1.3.6'
-  sha256 'e3697f349ba8e01b6302b268645bae41891b379b03ba5e6894ff4d3df3e83431'
+  url 'http://www.atagar.com/arm/resources/arm-1.3.7-1.tar.bz2'
+  sha256 '2d815dbf9608e501ab8d40f9f785c13308cd282821e36bda5bbbb62d548e0e0b'
 
   def install
-    mkdir_p "#{share}/arm"
-    system "cp -prv * #{share}/arm"
+    (share+"arm").mkpath
+    (share+"arm").install Dir["*"]
 
-    arm_share  = share + 'arm'
-    arm_script = arm_share + 'arm'
-
-    (bin+'arm').write <<-"EOS"
+    (bin+'arm').write <<-EOS
 #!/bin/sh
-cd #{arm_share}; #{arm_script} $@
+cd #{share}/arm; arm $@
     EOS
   end
 
-  def caveats
-    arm_share  = share + 'arm'
-    arm_sample = arm_share + 'armrc.sample'
-
-    <<-"EOS"
-    Install tor with `brew install tor`, or connect to an existing remote
-    instance.
-
+  def caveats; <<-EOS.undent
     You'll need to enable the Tor Control Protocol in your torrc.
     See here for details: http://www.torproject.org/tor-manual.html.en
 
     To configure Arm, copy the sample configuration from
-    #{arm_sample}
+    #{share}/arm/armrc.sample
     to ~/.armrc, adjusting as needed.
-  EOS
+    EOS
   end
 end
